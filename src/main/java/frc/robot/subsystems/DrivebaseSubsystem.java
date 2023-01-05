@@ -1,11 +1,16 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
+
+import javax.xml.namespace.QName;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Robot;
 import frc.robot.RobotMap.DrivebaseConstants;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -30,6 +35,8 @@ public class DrivebaseSubsystem extends SubsystemBase{
 
     public DrivebaseSubsystem()
      {
+        
+
         leftFrontMotor = new CANSparkMax(DrivebaseConstants.LEFT_FRONT_SPARK_ID, MotorType.kBrushless);
         leftBackMotor = new CANSparkMax(DrivebaseConstants.LEFT_BACK_SPARK_ID, MotorType.kBrushless);
         rightFrontMotor = new CANSparkMax(DrivebaseConstants.RIGHT_FRONT_SPARK_ID, MotorType.kBrushless);
@@ -119,5 +126,18 @@ public class DrivebaseSubsystem extends SubsystemBase{
     public void curvatureDrive(double xSpeed, double zRotations, boolean allowTurnInPlace)
     {
         getDrive().curvatureDrive(xSpeed, zRotations, allowTurnInPlace);
+    }
+
+    @Override
+    public void periodic()
+    {
+        SmartDashboard.putNumber("X-Position", Robot.getNavx().getQuaternionX());
+        SmartDashboard.putNumber("Y-Position", Robot.getNavx().getQuaternionY());
+        SmartDashboard.putNumber("Z-Position", Robot.getNavx().getQuaternionZ());
+
+        SmartDashboard.putNumber("X-Accelaration", Robot.getNavx().getRawAccelX());
+        SmartDashboard.putNumber("Y-Accelaration", Robot.getNavx().getRawAccelY());
+        SmartDashboard.putNumber("Z-Accelaration", Robot.getNavx().getRawAccelZ());
+
     }
 }
