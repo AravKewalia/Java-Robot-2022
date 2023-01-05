@@ -15,6 +15,9 @@ import frc.robot.RobotMap.DrivebaseConstants;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.RelativeEncoder;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 
 public class DrivebaseSubsystem extends SubsystemBase{
     private final CANSparkMax leftFrontMotor;
@@ -29,14 +32,20 @@ public class DrivebaseSubsystem extends SubsystemBase{
     private final RelativeEncoder rightFrontEncoder;
     private final RelativeEncoder rightBackEncoder;
 
+
      public DifferentialDrive getDrive() {
         return drive;
     }
+    public static final ShuffleboardTab DRIVEBASE_TAB = Shuffleboard.getTab("Drivebase");
+    public static final NetworkTableEntry LEFT_ENCODER_ENTRY = DRIVEBASE_TAB.add("Left Encoder", 0).getEntry();
+    public static final NetworkTableEntry RIGHT_ENCODER_ENTRY = DRIVEBASE_TAB.add("Right Encoder", 0).getEntry();
+    public static final NetworkTableEntry ENCODER_DISTANCE_ENTRY = DRIVEBASE_TAB.add("Encoder Distance", 0).getEntry();
+    public static final NetworkTableEntry NAVX_ANGLE_ENTRY = DRIVEBASE_TAB.add("NavX Angle", 0).getEntry();
+    public static final NetworkTableEntry NAVX_RATE_ENTRY = DRIVEBASE_TAB.add("NavX Rate", 0).getEntry();
 
     public DrivebaseSubsystem()
      {
         
-
         leftFrontMotor = new CANSparkMax(DrivebaseConstants.LEFT_FRONT_SPARK_ID, MotorType.kBrushless);
         leftBackMotor = new CANSparkMax(DrivebaseConstants.LEFT_BACK_SPARK_ID, MotorType.kBrushless);
         rightFrontMotor = new CANSparkMax(DrivebaseConstants.RIGHT_FRONT_SPARK_ID, MotorType.kBrushless);
@@ -131,13 +140,6 @@ public class DrivebaseSubsystem extends SubsystemBase{
     @Override
     public void periodic()
     {
-        SmartDashboard.putNumber("X-Position", Robot.getNavx().getQuaternionX());
-        SmartDashboard.putNumber("Y-Position", Robot.getNavx().getQuaternionY());
-        SmartDashboard.putNumber("Z-Position", Robot.getNavx().getQuaternionZ());
-
-        SmartDashboard.putNumber("X-Accelaration", Robot.getNavx().getRawAccelX());
-        SmartDashboard.putNumber("Y-Accelaration", Robot.getNavx().getRawAccelY());
-        SmartDashboard.putNumber("Z-Accelaration", Robot.getNavx().getRawAccelZ());
-
+        
     }
 }
