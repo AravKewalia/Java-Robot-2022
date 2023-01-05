@@ -140,6 +140,10 @@ public class DrivebaseSubsystem extends SubsystemBase{
     @Override
     public void periodic()
     {
-        
+        LEFT_ENCODER_ENTRY.setDouble(getLeftEncoder());
+		RIGHT_ENCODER_ENTRY.setDouble(getRightEncoder());
+		ENCODER_DISTANCE_ENTRY.setDouble(getAverageEncoders());
+		NAVX_ANGLE_ENTRY.setDouble(Robot.navX.getAngle());
+		NAVX_RATE_ENTRY.setDouble(Robot.navX.getRate());
     }
 }
